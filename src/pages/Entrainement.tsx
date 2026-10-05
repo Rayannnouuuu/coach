@@ -31,14 +31,16 @@ export default function Entrainement() {
   const [type, setType] = useState<TypeFiche | null>(null)
   const [tag, setTag] = useState<string | null>(null)
   const [session, setSession] = useState<Session | null>(null)
+  // Heure figée à l'ouverture de l'écran : les cartes « à revoir » restent dues jusqu'au prochain passage.
+  const [maintenant] = useState(() => new Date())
 
   const filtre: FiltreSession = { types: type ? [type] : undefined, tag }
-  const dues = sessionDuJour(toutesPhrases, etat.cartes, new Date(), filtre, Infinity)
+  const dues = sessionDuJour(toutesPhrases, etat.cartes, maintenant, filtre, Infinity)
   const maitrisees = toutesPhrases.filter((p) => (etat.cartes[p.id]?.boite ?? 0) >= 4).length
 
   const commencer = () =>
     setSession({
-      ids: sessionDuJour(toutesPhrases, etat.cartes, new Date(), filtre).map((p) => p.id),
+      ids: sessionDuJour(toutesPhrases, etat.cartes, maintenant, filtre).map((p) => p.id),
       index: 0,
       retournee: false,
       notes: [],
