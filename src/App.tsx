@@ -2,7 +2,9 @@ import { Navigate, Route, Routes } from 'react-router-dom'
 import Layout from './layout/Layout'
 import Entrainement from './pages/Entrainement'
 import FichePage from './pages/FichePage'
+import MonDiscours from './pages/MonDiscours'
 import Plus from './pages/Plus'
+import Reecrire from './pages/Reecrire'
 import Rubrique from './pages/Rubrique'
 
 export default function App() {
@@ -17,6 +19,8 @@ export default function App() {
         <Route path="/objections/:id" element={<FichePage type="objection" />} />
         <Route path="/entrainement" element={<Entrainement />} />
         <Route path="/plus" element={<Plus />} />
+        <Route path="/mon-discours" element={<MonDiscours />} />
+        <Route path="/reecrire" element={<Reecrire />} />
         <Route path="*" element={<Navigate to="/avant" replace />} />
       </Route>
     </Routes>

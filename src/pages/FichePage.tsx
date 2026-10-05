@@ -4,7 +4,7 @@ import EnTete from '../components/EnTete'
 import FicheVue from '../components/FicheVue'
 import { contenu } from '../lib/contenu'
 import type { TypeFiche } from '../lib/markdown'
-import { RUBRIQUES } from './Rubrique'
+import { RUBRIQUES } from '../lib/rubriques'
 
 export default function FichePage({ type }: { type: TypeFiche }) {
   const { id } = useParams()

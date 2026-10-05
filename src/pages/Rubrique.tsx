@@ -6,12 +6,7 @@ import { useEtat } from '../etat/contexte'
 import { contenu, fichesDeType } from '../lib/contenu'
 import type { TypeFiche } from '../lib/markdown'
 import { rechercherFiches } from '../lib/recherche'
-
-export const RUBRIQUES: Record<TypeFiche, { chemin: string; titre: string; intro: string }> = {
-  avant: { chemin: '/avant', titre: 'Avant le RDV', intro: 'À relire juste avant de recevoir.' },
-  produit: { chemin: '/produits', titre: 'Produits', intro: 'Accroches, questions et arguments par produit.' },
-  objection: { chemin: '/objections', titre: 'Objections', intro: 'Quoi répondre, en 5 secondes.' },
-}
+import { RUBRIQUES } from '../lib/rubriques'
 
 export default function Rubrique({ type, recherche = false }: { type: TypeFiche; recherche?: boolean }) {
   const { etat } = useEtat()
