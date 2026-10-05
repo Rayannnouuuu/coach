@@ -104,10 +104,11 @@ type Etat = {
   reecritures: Record<PhraseId, Reecriture[]>; // historique, la dernière = active
   cartes: Record<PhraseId, Carte>;     // progression d'entraînement
   objectifs: Objectif[];
+  dernierExport: string | null;        // ISO, pour le rappel de sauvegarde
   maj: string;                         // ISO date de dernière modification
 };
 
-type Reecriture = { texte: string; date: string };
+type Reecriture = { texte: string | null; date: string }; // null = retour à l'original
 
 type Carte = {
   boite: 0 | 1 | 2 | 3 | 4 | 5;       // système de Leitner
@@ -119,8 +120,7 @@ type Objectif = {
   id: string;
   libelle: string;                     // ex. « Proposer l'assurance 3 fois cette semaine »
   cible: number;
-  fait: number;
-  semaine: string;                     // ISO de l'année-semaine, ex. 2026-W41
+  historique: Record<string, number>;  // actions faites par semaine ISO, ex. { "2026-W41": 2 }
 };
 ```
 
@@ -164,8 +164,8 @@ Chaque phrase est rendue dans une carte. Selon l'écran :
 - Bouton « Réécrire » sur chaque phrase → éditeur plein écran simple
   (textarea, texte d'origine affiché au-dessus pour référence).
 - Enregistrer ajoute une entrée à l'historique (`reecritures`).
-- Historique consultable ; « Revenir à l'original » et « Restaurer cette
-  version » ajoutent une nouvelle entrée (rien n'est supprimé).
+- Historique consultable ; « Revenir à l'original » (entrée `texte: null`) et
+  « Restaurer cette version » ajoutent une nouvelle entrée (rien n'est supprimé).
 - Filtre « Mon discours » pour ne voir que les phrases réécrites.
 
 ### 5.3 Entraînement (S'entraîner)
