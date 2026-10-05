@@ -1,10 +1,24 @@
-import { contenu } from './lib/contenu'
+import { Navigate, Route, Routes } from 'react-router-dom'
+import Layout from './layout/Layout'
+import Entrainement from './pages/Entrainement'
+import FichePage from './pages/FichePage'
+import Plus from './pages/Plus'
+import Rubrique from './pages/Rubrique'
 
 export default function App() {
   return (
-    <main className="p-6">
-      <h1 className="text-2xl font-semibold">Coach Conseil</h1>
-      <p className="mt-2 text-text-muted">{contenu.fiches.length} fiches chargées.</p>
-    </main>
+    <Routes>
+      <Route element={<Layout />}>
+        <Route path="/avant" element={<Rubrique type="avant" />} />
+        <Route path="/avant/:id" element={<FichePage type="avant" />} />
+        <Route path="/produits" element={<Rubrique type="produit" />} />
+        <Route path="/produits/:id" element={<FichePage type="produit" />} />
+        <Route path="/objections" element={<Rubrique type="objection" recherche />} />
+        <Route path="/objections/:id" element={<FichePage type="objection" />} />
+        <Route path="/entrainement" element={<Entrainement />} />
+        <Route path="/plus" element={<Plus />} />
+        <Route path="*" element={<Navigate to="/avant" replace />} />
+      </Route>
+    </Routes>
   )
 }
